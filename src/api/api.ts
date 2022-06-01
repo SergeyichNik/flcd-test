@@ -1,5 +1,4 @@
 import axios from "axios";
-import {loadState} from "../localStorage/localStorage";
 
 export const api = axios.create({
     baseURL: "https://test.flcd.ru/api/",

@@ -28,6 +28,11 @@ export const authReducer =
             return {
                 ...state,
                 ...action.payload
+            };
+        case "SET_USER_SELF_DATA":
+            return {
+                ...state,
+                ...action.payload
             }
         default:
             return state;
@@ -42,7 +47,18 @@ export const setIsLoggedIn = (isLoggedIn: boolean, token: string | null) => {
         type: "SET_IS_LOGGED_IN",
         payload: {
             isLoggedIn,
-            token
+            token,
+        }
+    } as const
+}
+
+export const setUserSelfData = (email: string | null, id: number | null, name: string | null) => {
+    return {
+        type: "SET_USER_SELF_DATA",
+        payload: {
+            email,
+            id,
+            name,
         }
     } as const
 }
@@ -80,14 +96,15 @@ export const loginTC = (email: string, password: string): AppThunk =>
 export const getUserInfoTC = (): AppThunk =>
     (
         dispatch,
-        getState
     ) => {
         const token = loadState()
         if (token) {
             apiAuth.getUserSelf(token)
                 .then(res => {
-                    console.log(res)
+                    console.log(res.data.name)
+                    const {id, name, email} = res.data
                     dispatch(setIsLoggedIn(true, token))
+                    dispatch(setUserSelfData(email, id, name))
                 })
                 .catch(err => {
                     dispatch(setIsLoggedIn(false, null))
@@ -101,3 +118,4 @@ export const selectAuth = (state: RootStateType) => state.auth
 //types
 export type AuthReducerActionsType =
     | ReturnType<typeof setIsLoggedIn>
+    | ReturnType<typeof setUserSelfData>

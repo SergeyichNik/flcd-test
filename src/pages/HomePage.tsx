@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {selectAuth, setIsLoggedIn} from "../store/auth-reducer";
+import {selectAuth, setIsLoggedIn, setUserSelfData} from "../store/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
 
 const HomePage = () => {
@@ -10,6 +10,7 @@ const HomePage = () => {
 
     const onClickHandle = () => {
         dispatch(setIsLoggedIn(false, null))
+        dispatch(setUserSelfData(null, null, null))
         localStorage.removeItem("token")
     }
 
