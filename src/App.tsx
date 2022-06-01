@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {Route, Routes} from "react-router-dom";
+import BlogPage from "./pages/BlogPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import EditPostPage from "./pages/EditPostPage";
+import Layout from "./components/Layout";
+import PostPage from "./pages/PostPage";
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import HomePage from "./pages/HomePage";
+import RequireAuth from "./hoc/RequireAuth";
+import CreatePostPage from "./pages/CreatePostPage";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserInfoTC, selectAuth} from "./store/auth-reducer";
+import LoggedIn from "./pages/LoggedIn";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const {isLoggedIn} = useSelector(selectAuth)
+    const dispatch = useDispatch<any>()
+
+    useEffect(() => {
+        dispatch(getUserInfoTC())
+    }, [])
+
+    return (
+        <>
+
+            <Routes>
+                <Route path={"/"} element={<Layout />}>
+                    <Route index element={<HomePage />}/>
+                    <Route path={"posts"} element={<BlogPage/>}/>
+                    <Route path={"posts/:id"} element={<PostPage/>}/>
+                    <Route path={"posts/:id/edit"} element={<EditPostPage/>}/>
+                    <Route path={"posts/new"} element={
+                        <RequireAuth>
+                            <CreatePostPage/>
+                        </RequireAuth>
+                    }/>
+                    <Route path={"/login"} element={
+                            isLoggedIn
+                            ? <LoggedIn/>
+                            : <LoginPage/>
+                    }/>
+                    <Route path={"registration"} element={<RegistrationPage/>}/>
+                    <Route path={"*"} element={<NotFoundPage/>}/>
+                </Route>
+            </Routes>
+        </>
+    );
 }
 
 export default App;
