@@ -23,7 +23,10 @@ export const apiPosts = {
         return api.get(`post/${id}`)
     },
     setPost(text: string, token: string | null) {
-        return api.post("post", {text}, {headers: {authorization: `Bearer ${token}`}})
+        return api.post<SetPostResType>("post", {text}, {headers: {authorization: `Bearer ${token}`}})
+    },
+    updatePost(id: string, text: string) {
+        return api.patch(`post/${id}`, {text})
     }
 }
 
@@ -49,5 +52,13 @@ type GetUserSelfResType = {
     email: string
     id: number
     name: string
+}
+
+type SetPostResType = {
+    created_at: string
+    id: number
+    text: string
+    updated_at: string
+    user_id: number
 }
 // apiAuth.signUp("name", "woxas77376@nifect.com", "qwertyqwerty", "qwertyqwerty").then(res => console.log(res))

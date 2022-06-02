@@ -4,32 +4,38 @@ import {apiPosts} from "../api/api";
 export type PostsReducerActionsType =
     | ReturnType<typeof setPosts>
     | ReturnType<typeof setSinglePost>
+    | ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof addNewPost>
 
 
 type StateType = {
     postsData: PostType[],
-    singlePost: PostType
+    singlePost: PostType,
+    newPostText: string,
 }
 
 const InitialState: StateType = {
     postsData: [],
-    singlePost: {} as PostType
+    singlePost: {} as PostType,
+    newPostText: "",
 }
 
 
-export const postsReducer =
-    (
-    state: StateType = InitialState,
-    action: PostsReducerActionsType,
-    ): StateType => {
+export const postsReducer = (state: StateType = InitialState, action: PostsReducerActionsType,): StateType => {
     switch (action.type) {
         case "SET_POSTS":
             return {
                 ...state,
             postsData: [...state.postsData, ...action.payload.postsData]
             };
+        case "SET_NEW_POST":
+            return {
+                ...state, postsData: [...state.postsData, action.payload.model]
+            }
         case "SET_SINGLE_POST":
-            return {...state, singlePost: {...action.payload.singlePost}}
+            return {...state, singlePost: {...action.payload.singlePost}};
+        case "SET_NEW_POST_TEXT":
+            return {...state, newPostText: action.payload.text}
         default:
             return state;
     }
@@ -47,12 +53,29 @@ export const setPosts = (postsData: PostType[]) => {
         }
     } as const
 }
+export const updateNewPostText = (text: string) => {
+    return {
+        type: "SET_NEW_POST_TEXT",
+        payload: {
+            text
+        }
+    } as const
+}
 
 export const setSinglePost = (singlePost: PostType) => {
     return {
         type: "SET_SINGLE_POST",
         payload: {
             singlePost
+        }
+    } as const
+}
+
+export const addNewPost = (model: PostType) => {
+    return {
+        type: "SET_NEW_POST",
+        payload: {
+            model
         }
     } as const
 }
@@ -82,18 +105,39 @@ export const fetchSinglePost = (id: number): AppThunk =>
         })
 }
 
-export const createNewPostTC = (text: string): AppThunk =>
+export const createNewPostTC = (): AppThunk =>
     (
         dispatch,
         getState
     ) => {
     const token = getState().auth.token
-    apiPosts.setPost(text, token)
+    const title = getState().posts.newPostText
+    apiPosts.setPost(title, token)
+        .then(res => {
+            const model: PostType = {
+                comments: [],
+                ...res.data
+            }
+            dispatch(addNewPost(model))
+            dispatch(updateNewPostText(""))
+        })
+        .catch(err => {
+            const error = err.response.data
+                ? err.response.data.message
+                : err.message
+                console.log(error)
+        })
+    }
+
+export const updatePostText = (id: string, text: string): AppThunk  =>
+    (
+        dispatch
+    ) => {
+    apiPosts.updatePost(id, text)
         .then(res => {
             console.log(res)
         })
-        .catch(err => console.log(err.response.data.message))
-    }
+}
 
 //Types
 

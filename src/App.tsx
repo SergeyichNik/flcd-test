@@ -14,6 +14,7 @@ import CreatePostPage from "./pages/CreatePostPage";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfoTC, selectAuth} from "./store/auth-reducer";
 import LoggedIn from "./pages/LoggedIn";
+import {fetchPosts} from "./store/posts-reducer";
 
 
 function App() {
@@ -22,11 +23,15 @@ function App() {
 
     useEffect(() => {
         dispatch(getUserInfoTC())
+
     }, [isLoggedIn])
+
+    useEffect(() => {
+        dispatch(fetchPosts())
+    }, [])
 
     return (
         <>
-
             <Routes>
                 <Route path={"/"} element={<Layout />}>
                     <Route index element={<HomePage />}/>
