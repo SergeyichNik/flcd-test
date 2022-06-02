@@ -1,6 +1,7 @@
 import {AppThunk, RootStateType} from "./store";
-import {apiPosts} from "../api/api";
+
 import {handleServerAppError} from "../utils/error-utils";
+import {apiPosts} from "../api";
 
 export type PostsReducerActionsType =
     | ReturnType<typeof setPosts>

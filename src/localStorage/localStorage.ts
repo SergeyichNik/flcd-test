@@ -1,10 +1,3 @@
-// export const saveToLS = (token: string | null) => {
-//     if (!localStorage.getItem('token')) {
-//         const authToken = JSON.stringify(token)
-//         localStorage.setItem('token', authToken)
-//     }
-//
-// }
 
 const TOKEN_AUTH = "token"
 

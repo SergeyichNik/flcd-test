@@ -1,8 +1,9 @@
 import {AppThunk, RootStateType} from "./store";
-import {apiAuth, SignUpReqType} from "../api/api";
 import {loadState, saveTokenInLocalStorage} from "../localStorage/localStorage";
 import {handleServerAppError} from "../utils/error-utils";
 import {setAppStatusAC} from "./app-reducer";
+import {apiAuth} from "../api";
+import {SignUpReqType} from "../api/types";
 
 type AuthReducerStateType = {
     email: string | null
