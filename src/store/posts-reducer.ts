@@ -6,6 +6,7 @@ export type PostsReducerActionsType =
     | ReturnType<typeof setSinglePost>
     | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof addNewPost>
+    | ReturnType<typeof updatePostAC>
 
 
 type StateType = {
@@ -31,6 +32,11 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
         case "SET_NEW_POST":
             return {
                 ...state, postsData: [...state.postsData, action.payload.model]
+            }
+        case "UPDATE_POST":
+            return {
+                ...state,
+                postsData: state.postsData.map(post => post.id === action.payload.id ? {...post, ...action.payload.model} : post )
             }
         case "SET_SINGLE_POST":
             return {...state, singlePost: {...action.payload.singlePost}};
@@ -60,6 +66,17 @@ export const updateNewPostText = (text: string) => {
             text
         }
     } as const
+}
+
+export const updatePostAC = (id: number, model: PostType) => {
+    return {
+        type: "UPDATE_POST",
+        payload: {
+            model,
+            id
+        }
+    } as const
+
 }
 
 export const setSinglePost = (singlePost: PostType) => {
@@ -129,13 +146,28 @@ export const createNewPostTC = (): AppThunk =>
         })
     }
 
-export const updatePostText = (id: string, text: string): AppThunk  =>
+export const updatePostTextTC = (id: number, model: PostType): AppThunk  =>
     (
-        dispatch
+        dispatch,
+        getState,
     ) => {
-    apiPosts.updatePost(id, text)
+    const token = getState().auth.token
+    const postsData = getState().posts.postsData
+    const task = postsData.find(post => id === post.id)
+    if (!task) {
+        console.warn("post not found")
+        return
+    }
+    apiPosts.updatePost(id, model.text,token)
         .then(res => {
             console.log(res)
+            dispatch(updatePostAC( id,{comments: [], ...res.data}))
+        })
+        .catch(err => {
+            const error = err.response.data
+                ? err.response.data.message
+                : err.message
+            console.log(error)
         })
 }
 

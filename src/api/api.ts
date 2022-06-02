@@ -25,8 +25,8 @@ export const apiPosts = {
     setPost(text: string, token: string | null) {
         return api.post<SetPostResType>("post", {text}, {headers: {authorization: `Bearer ${token}`}})
     },
-    updatePost(id: string, text: string) {
-        return api.patch(`post/${id}`, {text})
+    updatePost(id: number, text: string, token: string | null) {
+        return api.patch(`post/${id}`, {text}, {headers: {authorization: `Bearer ${token}`}})
     }
 }
 

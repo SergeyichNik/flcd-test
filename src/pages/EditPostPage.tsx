@@ -1,15 +1,22 @@
-import React from 'react';
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {selectPosts} from "../store/posts-reducer";
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {PostType, selectPosts, updatePostTextTC} from "../store/posts-reducer";
 
 const EditPostPage = () => {
-    const {id} = useParams()
+    const dispatch = useDispatch<any>()
+
     const singlePost = useSelector(selectPosts).singlePost
 
+    const [value, setValue] = useState(singlePost.text)
+
+    const onClickHandle = () => {
+        dispatch(updatePostTextTC(singlePost.id,{text: value} as PostType))
+    }
     return (
         <div>
-            <h2>Edit post {id}</h2>
+            <h2>Edit post {singlePost.id}</h2>
+            <textarea value={value} onChange={(e) => setValue(e.currentTarget.value)}/>
+            <button onClick={onClickHandle}>Confirm</button>
         </div>
     );
 };
