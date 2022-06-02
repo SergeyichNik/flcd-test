@@ -1,16 +1,15 @@
 import React from 'react';
-
 import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {loginTC, selectAuth} from "../store/auth-reducer";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import {loginTC, selectAuth} from "../../store";
 
 
-const LoginPage = () => {
+export const LoginPage = () => {
 
     const dispatch = useDispatch<any>()
-    const {isLoggedIn} = useSelector(selectAuth)
+    const isLoggedIn = useSelector(selectAuth).isLoggedIn
 
     const formik = useFormik({
         initialValues: {
@@ -52,5 +51,3 @@ const LoginPage = () => {
         </div>
     );
 };
-
-export default LoginPage;

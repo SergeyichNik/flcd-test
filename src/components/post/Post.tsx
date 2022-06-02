@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 type PropsType = {
     postId: number,
@@ -7,7 +7,7 @@ type PropsType = {
     comments: number
 }
 
-const Post = ({postId, comments, text}: PropsType) => {
+export const Post = ({postId, comments, text}: PropsType) => {
 
     return (
         <Link to={`/posts/${postId}`}>
@@ -17,5 +17,3 @@ const Post = ({postId, comments, text}: PropsType) => {
         </Link>
     );
 };
-
-export default Post;

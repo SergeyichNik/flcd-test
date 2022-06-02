@@ -1,10 +1,10 @@
 import React from 'react';
 import {Navigate, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {selectAuth} from "../store/auth-reducer";
+import {selectAuth} from "../../store";
 
 export const RequireAuth = ({children}: {children: JSX.Element}) => {
-    const {isLoggedIn} = useSelector(selectAuth)
+    const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const location = useLocation()
 
 
@@ -14,5 +14,3 @@ export const RequireAuth = ({children}: {children: JSX.Element}) => {
 
     return children
 };
-
-export default RequireAuth;

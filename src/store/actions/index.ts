@@ -7,3 +7,13 @@ export {
     updatePostAC,
     removePostAC,
 } from "./posts";
+
+export {
+    setIsLoggedInAC,
+    setUserSelfDataAC,
+} from "./auth"
+
+export {
+    setAppStatusAC,
+    setErrorMessageAC,
+} from "./app"

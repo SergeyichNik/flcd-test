@@ -1,13 +1,13 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
-import {CustomLink} from "./CustomLink";
-import StatusBar from "./status-bar/StatusBar";
 import {useSelector} from "react-redux";
-import {selectApp} from "../store/app-reducer";
+import {selectApp} from "../../store";
+import {CustomLink} from "../custom-link";
+import {StatusBar} from "../status-bar";
 
-const Layout = () => {
+
+export const Layout = () => {
     const error = useSelector(selectApp).error
-
 
     return (
         <>
@@ -22,5 +22,3 @@ const Layout = () => {
         </>
     );
 };
-
-export default Layout;

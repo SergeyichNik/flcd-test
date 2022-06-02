@@ -1,20 +1,21 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import BlogPage from "./pages/BlogPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import EditPostPage from "./pages/EditPostPage";
-import Layout from "./components/Layout";
-import PostPage from "./pages/PostPage";
-import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import HomePage from "./pages/HomePage";
-import RequireAuth from "./hoc/RequireAuth";
-import CreatePostPage from "./pages/CreatePostPage";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserInfoTC, selectAuth} from "./store/auth-reducer";
-import {fetchPostsTC} from "./store/middlewares";
+import {fetchPostsTC, getUserInfoTC, selectAuth} from "./store";
 
+import {
+    BlogPage,
+    CreatePostPage,
+    EditPostPage,
+    HomePage,
+    LoginPage,
+    NotFoundPage,
+    PostPage,
+    RegistrationPage
+} from "./pages";
+import {RequireAuth} from "./hoc";
+import {Layout} from "./components";
 
 
 function App() {

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../store/auth-reducer";
-import {selectPosts} from "../store/selectors";
-import {fetchCurrentPostTC, removePostTC} from "../store/middlewares";
+import {fetchCurrentPostTC, removePostTC, selectAuth, selectPosts} from "../../store";
 
-const PostPage = () => {
+
+export const PostPage = () => {
     const dispatch = useDispatch<any>()
     const singlePost = useSelector(selectPosts).singlePost
     const isFetch = useSelector(selectPosts).isFetch
@@ -59,5 +58,3 @@ const PostPage = () => {
         </div>
     );
 };
-
-export default PostPage;

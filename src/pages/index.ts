@@ -1,0 +1,8 @@
+export { BlogPage } from "./blog-page"
+export { CreatePostPage } from "./create-post-page"
+export { EditPostPage } from "./edit-post-page"
+export { HomePage } from "./home-page"
+export { LoginPage } from "./login-page"
+export { NotFoundPage } from "./not-found-page"
+export { PostPage } from "./post-page"
+export { RegistrationPage } from "./registration-page"

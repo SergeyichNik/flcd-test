@@ -1,9 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {selectPosts} from "../store/selectors";
+import {selectPosts} from "../../store";
 
-const BlogPage = () => {
+
+export const BlogPage = () => {
     console.log("render")
     const postsData = useSelector(selectPosts).postsData
 
@@ -28,5 +29,3 @@ const BlogPage = () => {
         </div>
     );
 };
-
-export default BlogPage;

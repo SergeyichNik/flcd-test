@@ -1,12 +1,12 @@
 import React from 'react';
 import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth, signUpTC} from "../store/auth-reducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {selectApp} from "../store/app-reducer";
+import {selectApp, selectAuth, signUpTC} from "../../store";
 
-const RegistrationPage = () => {
+
+export const RegistrationPage = () => {
 
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
@@ -67,5 +67,3 @@ const RegistrationPage = () => {
         </div>
     );
 };
-
-export default RegistrationPage;

@@ -1,11 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {selectPosts} from "../store/selectors";
-import {updateNewPostTextAC} from "../store/actions";
-import {createNewPostTC} from "../store/middlewares";
+import {createNewPostTC, selectPosts, updateNewPostTextAC} from "../../store";
 
-const CreatePostPage = () => {
+
+export const CreatePostPage = () => {
     const dispatch = useDispatch<any>();
     const newPostText = useSelector(selectPosts).newPostText
     const isFetch = useSelector(selectPosts).isFetch
@@ -30,5 +29,3 @@ const CreatePostPage = () => {
         </div>
     );
 };
-
-export default CreatePostPage;

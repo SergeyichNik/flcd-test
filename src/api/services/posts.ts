@@ -1,6 +1,7 @@
 import {api} from "../config";
 import {DeletePostType, SetPostResType} from "../types";
-import {PostType} from "../../store/types";
+import {PostType} from "../../store";
+
 
 export const apiPosts = {
     getPosts() {

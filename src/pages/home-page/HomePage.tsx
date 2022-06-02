@@ -1,17 +1,18 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {selectAuth, setIsLoggedIn, setUserSelfData} from "../store/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
+import {selectAuth, setIsLoggedInAC, setUserSelfDataAC} from "../../store";
 
-const HomePage = () => {
+
+export const HomePage = () => {
 
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const userName = useSelector(selectAuth).name
     const dispatch = useDispatch<any>()
 
     const onClickHandle = () => {
-        dispatch(setIsLoggedIn(false, null))
-        dispatch(setUserSelfData(null, null, null))
+        dispatch(setIsLoggedInAC(false, null))
+        dispatch(setUserSelfDataAC(null, null, null))
         localStorage.removeItem("token")
     }
 
@@ -31,5 +32,3 @@ const HomePage = () => {
         </div>
     );
 };
-
-export default HomePage;

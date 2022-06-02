@@ -1,9 +1,7 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {postsReducer} from "./reducers/posts-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
-import {authReducer, AuthReducerActionsType} from "./auth-reducer";
-import {appReducer, AppReducerActionsTypes} from "./app-reducer";
-import {PostsReducerActionsType} from "./types";
+import {AppReducerActionsTypes, AuthReducerActionsType, PostsReducerActionsType} from "./types";
+import {appReducer, authReducer, postsReducer} from "./reducers";
 
 
 const reducer = combineReducers({

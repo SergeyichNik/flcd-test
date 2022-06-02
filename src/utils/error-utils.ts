@@ -1,5 +1,5 @@
-import {AppReducerActionsTypes, setErrorMessageAC} from "../store/app-reducer";
 import {Dispatch} from "redux";
+import {AppReducerActionsTypes, setErrorMessageAC} from "../store";
 
 
 export const handleServerAppError = (err: any, dispatch: Dispatch<AppReducerActionsTypes>) => {

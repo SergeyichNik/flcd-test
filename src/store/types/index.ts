@@ -1,13 +1,14 @@
 
 import {
     addNewPostAC,
-    removePostAC,
-    setCurrentPostAC,
-    setPostsAC,
+    removePostAC, setAppStatusAC,
+    setCurrentPostAC, setErrorMessageAC, setIsLoggedInAC,
+    setPostsAC, setUserSelfDataAC,
     toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
+
 
 export type PostsReducerActionsType =
     | ReturnType<typeof setPostsAC>
@@ -46,3 +47,26 @@ export type CommentType = {
     updated_at: string,
     replies: []
 }
+
+export type AuthReducerActionsType =
+    | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setUserSelfDataAC>
+
+export type AuthReducerStateType = {
+    email: string | null
+    id: number | null
+    name: string | null
+    isLoggedIn: boolean
+    token: string | null
+}
+
+export type AppReducerStateType = {
+    error: string | null,
+    status: AppStatusesType
+}
+
+export type AppReducerActionsTypes =
+    | ReturnType<typeof setErrorMessageAC>
+    | ReturnType<typeof setAppStatusAC>
+
+export type AppStatusesType = "SUCCESS" | "FAILED" | "LOADING" | "IDLE"
