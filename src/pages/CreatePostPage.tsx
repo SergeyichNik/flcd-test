@@ -1,7 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {createNewPostTC, selectPosts, updateNewPostText} from "../store/posts-reducer";
 import {Navigate} from "react-router-dom";
+import {selectPosts} from "../store/selectors";
+import {updateNewPostTextAC} from "../store/actions";
+import {createNewPostTC} from "../store/middlewares";
 
 const CreatePostPage = () => {
     const dispatch = useDispatch<any>();
@@ -9,7 +11,7 @@ const CreatePostPage = () => {
     const isFetch = useSelector(selectPosts).isFetch
 
     const onChangeHandle = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewPostText(e.currentTarget.value))
+        dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
 
     const onClickHandle = () => {

@@ -13,12 +13,12 @@ import RequireAuth from "./hoc/RequireAuth";
 import CreatePostPage from "./pages/CreatePostPage";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfoTC, selectAuth} from "./store/auth-reducer";
-import LoggedIn from "./pages/LoggedIn";
-import {fetchPosts} from "./store/posts-reducer";
+import {fetchPostsTC} from "./store/middlewares";
+
 
 
 function App() {
-    const {isLoggedIn} = useSelector(selectAuth)
+    const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const dispatch = useDispatch<any>()
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function App() {
     }, [isLoggedIn])
 
     useEffect(() => {
-        dispatch(fetchPosts())
+        dispatch(fetchPostsTC())
     }, [])
 
     return (

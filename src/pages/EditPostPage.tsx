@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {PostType, selectPosts, updatePostTextTC} from "../store/posts-reducer";
+
 import {Navigate} from "react-router-dom";
+import {selectPosts} from "../store/selectors";
+import {updatePostTextTC} from "../store/middlewares";
+import {PostType} from "../store/types";
 
 const EditPostPage = () => {
 

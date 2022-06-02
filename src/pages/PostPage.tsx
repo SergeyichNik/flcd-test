@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchSinglePost, removePostTC, selectPosts} from "../store/posts-reducer";
 import {selectAuth} from "../store/auth-reducer";
+import {selectPosts} from "../store/selectors";
+import {fetchCurrentPostTC, removePostTC} from "../store/middlewares";
 
 const PostPage = () => {
     const dispatch = useDispatch<any>()
@@ -20,7 +21,7 @@ const PostPage = () => {
 
     useEffect(() => {
       if (id) {
-          dispatch(fetchSinglePost(+id))
+          dispatch(fetchCurrentPostTC(+id))
       }
     }, [])
 

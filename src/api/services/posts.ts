@@ -1,6 +1,6 @@
-import {PostType} from "../../store/posts-reducer";
 import {api} from "../config";
 import {DeletePostType, SetPostResType} from "../types";
+import {PostType} from "../../store/types";
 
 export const apiPosts = {
     getPosts() {

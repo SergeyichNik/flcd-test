@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectPosts} from "../store/posts-reducer";
 import {Link} from "react-router-dom";
+import {selectPosts} from "../store/selectors";
 
 const BlogPage = () => {
     console.log("render")

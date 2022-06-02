@@ -1,0 +1,1 @@
+export { selectPosts } from "./selectPosts"
