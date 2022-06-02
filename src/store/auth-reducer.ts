@@ -1,6 +1,8 @@
 import {AppThunk, RootStateType} from "./store";
-import {apiAuth} from "../api/api";
+import {apiAuth, SignUpReqType} from "../api/api";
 import {loadState, saveTokenInLocalStorage} from "../localStorage/localStorage";
+import {handleServerAppError} from "../utils/error-utils";
+import {setAppStatusAC} from "./app-reducer";
 
 type AuthReducerStateType = {
     email: string | null
@@ -66,14 +68,22 @@ export const setUserSelfData = (email: string | null, id: number | null, name: s
 
 //thunk Creators
 
-export const signUpTC = (name: string, email: string, password: string, password_confirmation: string): AppThunk =>
+export const signUpTC = (model: SignUpReqType): AppThunk =>
     (
         dispatch
     ) => {
-    apiAuth.signUp(name, email, password, password_confirmation).then(res => {
+    dispatch(setAppStatusAC("LOADING"))
+    apiAuth.signUp(model)
+        .then(res => {
         console.log(res);
-
-    })
+        dispatch(setAppStatusAC("SUCCESS"))
+        })
+        .catch(err => {
+            handleServerAppError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("IDLE"))
+        })
 }
 
 export const loginTC = (email: string, password: string): AppThunk =>
@@ -87,9 +97,8 @@ export const loginTC = (email: string, password: string): AppThunk =>
                saveTokenInLocalStorage(res.data.token)
            }
         })
-        .catch(e => {
-            const error = e.response ? e.response.data.message : e.message;
-            console.log(error)
+        .catch(err => {
+            handleServerAppError(err, dispatch)
         })
 }
 
@@ -108,7 +117,7 @@ export const getUserInfoTC = (): AppThunk =>
                 })
                 .catch(err => {
                     dispatch(setIsLoggedIn(false, null))
-                    console.log(err.response.data.message)
+                    handleServerAppError(err, dispatch)
                 })
         }
 

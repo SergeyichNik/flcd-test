@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 const HomePage = () => {
 
-    const {isLoggedIn} = useSelector(selectAuth)
+    const isLoggedIn = useSelector(selectAuth).isLoggedIn
+    const userName = useSelector(selectAuth).name
     const dispatch = useDispatch<any>()
 
     const onClickHandle = () => {
@@ -19,7 +20,11 @@ const HomePage = () => {
             <h2>Home page</h2>
             {
                 isLoggedIn
-                    ? <div style={{cursor: "pointer"}} onClick={onClickHandle}>Log out</div>
+                    ? <>
+                        <h2>Hello, {userName}</h2>
+                        <p>You have successfully logged in!</p>
+                        <div style={{cursor: "pointer"}} onClick={onClickHandle}>Log out</div>
+                    </>
                     : <Link to={"/login"}>Sign In</Link>
             }
 

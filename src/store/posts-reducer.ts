@@ -1,5 +1,6 @@
 import {AppThunk, RootStateType} from "./store";
 import {apiPosts} from "../api/api";
+import {handleServerAppError} from "../utils/error-utils";
 
 export type PostsReducerActionsType =
     | ReturnType<typeof setPosts>
@@ -7,18 +8,22 @@ export type PostsReducerActionsType =
     | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof addNewPost>
     | ReturnType<typeof updatePostAC>
+    | ReturnType<typeof removePostAC>
+    | ReturnType<typeof toggleIsFetchAC>
 
 
 type StateType = {
     postsData: PostType[],
     singlePost: PostType,
     newPostText: string,
+    isFetch: boolean
 }
 
 const InitialState: StateType = {
     postsData: [],
     singlePost: {} as PostType,
     newPostText: "",
+    isFetch: false,
 }
 
 
@@ -38,10 +43,17 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
                 ...state,
                 postsData: state.postsData.map(post => post.id === action.payload.id ? {...post, ...action.payload.model} : post )
             }
+        case "REMOVE_POST":
+            return {
+                ...state,
+                postsData: state.postsData.filter(post => post.id !== action.payload.id)
+            }
         case "SET_SINGLE_POST":
             return {...state, singlePost: {...action.payload.singlePost}};
         case "SET_NEW_POST_TEXT":
-            return {...state, newPostText: action.payload.text}
+            return {...state, newPostText: action.payload.text};
+        case "TOGGLE_IS_FETCH":
+            return {...state, isFetch: action.payload.isFetch}
         default:
             return state;
     }
@@ -96,6 +108,24 @@ export const addNewPost = (model: PostType) => {
         }
     } as const
 }
+
+export const removePostAC = (id: number) => {
+    return {
+        type: "REMOVE_POST",
+        payload: {
+          id
+        }
+    } as const
+}
+
+export const toggleIsFetchAC = (isFetch: boolean) => {
+    return {
+        type: "TOGGLE_IS_FETCH",
+        payload: {
+            isFetch
+        }
+    } as const
+}
 //thunkCreators
 export const fetchPosts = (): AppThunk =>
     (
@@ -116,9 +146,17 @@ export const fetchSinglePost = (id: number): AppThunk =>
     ) => {
     apiPosts.getPost(id)
         .then(res => {
+            console.log(res)
             if (res.status >= 200 && res.status < 300) {
                 dispatch(setSinglePost(res.data))
             }
+        })
+        .catch(err => {
+            handleServerAppError(err, dispatch)
+            dispatch(toggleIsFetchAC(true))
+        })
+        .finally(() => {
+            dispatch(toggleIsFetchAC(false))
         })
 }
 
@@ -137,12 +175,11 @@ export const createNewPostTC = (): AppThunk =>
             }
             dispatch(addNewPost(model))
             dispatch(updateNewPostText(""))
+            dispatch(toggleIsFetchAC(true))
         })
         .catch(err => {
-            const error = err.response.data
-                ? err.response.data.message
-                : err.message
-                console.log(error)
+            handleServerAppError(err, dispatch)
+            dispatch(toggleIsFetchAC(false))
         })
     }
 
@@ -162,12 +199,35 @@ export const updatePostTextTC = (id: number, model: PostType): AppThunk  =>
         .then(res => {
             console.log(res)
             dispatch(updatePostAC( id,{comments: [], ...res.data}))
+            dispatch(toggleIsFetchAC(true))
         })
         .catch(err => {
-            const error = err.response.data
-                ? err.response.data.message
-                : err.message
-            console.log(error)
+            handleServerAppError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(toggleIsFetchAC(false))
+        })
+}
+
+export const removePostTC = (id: number): AppThunk =>
+    (
+        dispatch,
+        getState
+    ) => {
+    const token = getState().auth.token
+    apiPosts.deletePost(id, token)
+        .then(res => {
+            if(res.status >= 200 && res.status <= 300)
+                dispatch(removePostAC(id))
+                console.log(res.data[0])
+                dispatch(toggleIsFetchAC(true))
+            }
+        )
+        .catch(err => {
+            handleServerAppError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(toggleIsFetchAC(false))
         })
 }
 

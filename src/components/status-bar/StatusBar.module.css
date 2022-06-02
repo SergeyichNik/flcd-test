@@ -1,0 +1,12 @@
+.main {
+    height: 30px;
+    width: fit-content;
+    padding: 0 5px;
+    line-height: 30px;
+    position: absolute;
+    background-color: red;
+    border-radius: 5px;
+    color: white;
+    right: 10px;
+    top: 10px;
+}

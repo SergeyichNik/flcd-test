@@ -1,18 +1,13 @@
 import React from 'react';
 
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {loginTC, selectAuth, signUpTC} from "../store/auth-reducer";
+import {loginTC, selectAuth} from "../store/auth-reducer";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 
 
 const LoginPage = () => {
-
-    const navigate = useNavigate()
-    const location = useLocation();
-    // @ts-ignore
-    const fromPage = location.state?.from?.pathname || "/"
 
     const dispatch = useDispatch<any>()
     const {isLoggedIn} = useSelector(selectAuth)
@@ -31,11 +26,7 @@ const LoginPage = () => {
         }
     })
 
-    const onClickHandle = () => {
-        dispatch(signUpTC("name", "woxas77376@nifect.com", "qwertyqwerty", "qwertyqwerty"))
-    }
-
-    if (isLoggedIn) return <Navigate to={fromPage} replace={true}/>
+    if (isLoggedIn) return <Navigate to={"/posts"} replace={true}/>
 
     return (
         <div>

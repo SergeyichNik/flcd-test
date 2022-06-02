@@ -43,11 +43,7 @@ function App() {
                             <CreatePostPage/>
                         </RequireAuth>
                     }/>
-                    <Route path={"/login"} element={
-                            isLoggedIn
-                            ? <LoggedIn/>
-                            : <LoginPage/>
-                    }/>
+                    <Route path={"/login"} element={<LoginPage/>}/>
                     <Route path={"registration"} element={<RegistrationPage/>}/>
                     <Route path={"*"} element={<NotFoundPage/>}/>
                 </Route>
