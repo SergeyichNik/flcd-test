@@ -4,10 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {loginTC, selectAuth} from "../../store";
+import classes from "./LoginPage.module.css";
 
 
-export const LoginPage = () => {
-
+export const LoginPage = React.memo( () => {
+    console.log('LoginPage')
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
 
@@ -28,7 +29,7 @@ export const LoginPage = () => {
     if (isLoggedIn) return <Navigate to={"/posts"} replace={true}/>
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <h2>LoginPage</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div>
@@ -50,4 +51,4 @@ export const LoginPage = () => {
             </form>
         </div>
     );
-};
+});

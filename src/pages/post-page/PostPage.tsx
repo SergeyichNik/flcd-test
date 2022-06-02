@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCurrentPostTC, removePostTC, selectAuth, selectPosts} from "../../store";
+import classes from "./PostPage.module.css";
 
 
 export const PostPage = () => {
+    console.log("PostPage")
     const dispatch = useDispatch<any>()
     const singlePost = useSelector(selectPosts).singlePost
     const isFetch = useSelector(selectPosts).isFetch
@@ -37,8 +39,8 @@ export const PostPage = () => {
     }
 
     return (
-        <div>
-            <button onClick={() => navigate(-1)}>Back</button>
+        <div className={classes.wrapper}>
+            <button  style={{marginRight: "220px"}} onClick={() => navigate(-1)}>Back</button>
             <h2>{singlePost.text}</h2>
             {currentUserId === ownerId &&
                 <>

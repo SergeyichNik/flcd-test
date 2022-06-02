@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import './App.css';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPostsTC, getUserInfoTC, selectAuth} from "./store";
@@ -23,13 +22,15 @@ function App() {
     const dispatch = useDispatch<any>()
 
     useEffect(() => {
+        dispatch(fetchPostsTC())
+    }, [])
+
+    useEffect(() => {
         dispatch(getUserInfoTC())
 
     }, [isLoggedIn])
 
-    useEffect(() => {
-        dispatch(fetchPostsTC())
-    }, [])
+
 
     return (
         <>

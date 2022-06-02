@@ -3,20 +3,24 @@ import {Outlet} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectApp} from "../../store";
 import {CustomLink} from "../custom-link";
-import {StatusBar} from "../status-bar";
+import {StatusBarError, StatusBarSuccess} from "../status-bar";
+import classes from "./Layout.module.css";
 
 
 export const Layout = () => {
+
     const error = useSelector(selectApp).error
+    const success = useSelector(selectApp).success
 
     return (
         <>
-            {error && <StatusBar error={error}/>}
-            <header >
+            {error && <StatusBarError error={error}/>}
+            {success && <StatusBarSuccess message={success}/>}
+            <header className={classes.headerWrapper}>
                 <CustomLink to="/">Home  </CustomLink>
                 <CustomLink to="/posts">Blog  </CustomLink>
             </header>
-            <main style={{textAlign: "center"}}>
+            <main className={classes.outlet}>
                 <Outlet/>
             </main>
         </>

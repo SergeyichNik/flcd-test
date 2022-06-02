@@ -8,6 +8,7 @@ import {
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
+import {setSuccessMessageAC} from "../actions/app";
 
 
 export type PostsReducerActionsType =
@@ -61,12 +62,15 @@ export type AuthReducerStateType = {
 }
 
 export type AppReducerStateType = {
+    success: "Success" | null,
     error: string | null,
-    status: AppStatusesType
+    status: AppStatusesType,
 }
 
 export type AppReducerActionsTypes =
     | ReturnType<typeof setErrorMessageAC>
     | ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setSuccessMessageAC>
+
 
 export type AppStatusesType = "SUCCESS" | "FAILED" | "LOADING" | "IDLE"

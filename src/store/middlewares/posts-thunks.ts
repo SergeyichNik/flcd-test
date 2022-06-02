@@ -3,8 +3,8 @@ import {apiPosts} from "../../api";
 import {
     addNewPostAC,
     removePostAC,
-    setCurrentPostAC,
-    setPostsAC,
+    setCurrentPostAC, setErrorMessageAC,
+    setPostsAC, setSuccessMessageAC,
     toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
@@ -59,6 +59,7 @@ export const createNewPostTC = (): AppThunk =>
                     comments: [],
                     ...res.data
                 }
+                dispatch(setSuccessMessageAC("Success"))
                 dispatch(addNewPostAC(model))
                 dispatch(updateNewPostTextAC(""))
                 dispatch(toggleIsFetchAC(true))
@@ -84,6 +85,7 @@ export const updatePostTextTC = (id: number, model: PostType): AppThunk =>
         apiPosts.updatePost(id, model.text, token)
             .then(res => {
                 console.log(res)
+                dispatch(setSuccessMessageAC("Success"))
                 dispatch(updatePostAC(id, {comments: [], ...res.data}))
                 dispatch(toggleIsFetchAC(true))
             })
@@ -106,6 +108,7 @@ export const removePostTC = (id: number): AppThunk =>
                     if (res.status >= 200 && res.status <= 300)
                         dispatch(removePostAC(id))
                     console.log(res.data[0])
+                    dispatch(setSuccessMessageAC("Success"))
                     dispatch(toggleIsFetchAC(true))
                 }
             )

@@ -4,10 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {selectApp, selectAuth, signUpTC} from "../../store";
+import classes from "./RegistrationPage.module.css";
 
 
 export const RegistrationPage = () => {
-
+    console.log("RegistrationPage")
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const status = useSelector(selectApp).status
@@ -35,7 +36,7 @@ export const RegistrationPage = () => {
     if (isLoggedIn) return <Navigate to={"/"} replace={true}/>
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <h2>Registration Page</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div>

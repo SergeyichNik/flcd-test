@@ -2,15 +2,33 @@ import {Dispatch} from "redux";
 import {AppReducerActionsTypes, setErrorMessageAC} from "../store";
 
 
-export const handleServerAppError = (err: any, dispatch: Dispatch<AppReducerActionsTypes>) => {
-    if (err.response.data) {
-        if (err.response.data.message === 'string') {
-            dispatch(setErrorMessageAC(err.response.data.message))
-        } else if (err.response.data.errors.length) {
-            dispatch(setErrorMessageAC(err.response.data.errors[0]))
-        }
-    }  else {
-        dispatch(setErrorMessageAC(err.message))
+export const handleServerAppError = (err: ErrRes<ResTypeA & ResTypeB> & ResTypeA, dispatch: Dispatch<AppReducerActionsTypes>) => {
+    console.log(err)
+    console.log(err.response.data)
+    console.log("network error", err.message)
+
+    let error = err.response.data ? err.response.data.message : err.message
+
+
+        dispatch(setErrorMessageAC(error))
+
+
+
+
+}
+
+
+type ErrRes<T> = {
+    response: {
+        data: T
     }
 
+}
+
+type ResTypeA = {
+    message: string
+}
+
+type ResTypeB = {
+    errors: string[]
 }

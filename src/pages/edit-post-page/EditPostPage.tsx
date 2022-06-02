@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {PostType, selectPosts, updatePostTextTC} from "../../store";
+import classes from "./EditPostPage.module.css";
 
 
 export const EditPostPage = () => {
-
+    console.log("EditPostPage")
     const dispatch = useDispatch<any>()
 
     const singlePost = useSelector(selectPosts).singlePost
     const isFetch = useSelector(selectPosts).isFetch
 
+    const navigate = useNavigate()
 
     const [value, setValue] = useState(singlePost.text)
 
@@ -23,10 +25,11 @@ export const EditPostPage = () => {
     }
 
     return (
-        <div>
+        <div className={classes.wrapper}>
+            <button  style={{marginRight: "220px"}} onClick={() => navigate(-1)}>Back</button>
             <h2>Edit post {singlePost.id}</h2>
             <textarea value={value} onChange={(e) => setValue(e.currentTarget.value)}/>
-            <button onClick={onClickHandle}>Confirm</button>
+            <button  onClick={onClickHandle}>Confirm</button>
         </div>
     );
 };

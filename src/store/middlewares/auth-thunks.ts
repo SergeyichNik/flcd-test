@@ -3,7 +3,7 @@ import {AppThunk} from "../store";
 import {apiAuth} from "../../api";
 import {handleServerAppError} from "../../utils/error-utils";
 import {loadState, saveTokenInLocalStorage} from "../../localStorage/localStorage";
-import {setAppStatusAC, setIsLoggedInAC, setUserSelfDataAC} from "../actions";
+import {setAppStatusAC, setIsLoggedInAC, setSuccessMessageAC, setUserSelfDataAC} from "../actions";
 
 export const signUpTC = (model: SignUpReqType): AppThunk =>
     (
@@ -14,6 +14,7 @@ export const signUpTC = (model: SignUpReqType): AppThunk =>
             .then(res => {
                 console.log(res);
                 dispatch(setAppStatusAC("SUCCESS"))
+                dispatch(setSuccessMessageAC("Success"))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
@@ -32,6 +33,7 @@ export const loginTC = (email: string, password: string): AppThunk =>
                 if (res.status >= 200 && res.status < 300) {
                     dispatch(setIsLoggedInAC(true, res.data.token))
                     saveTokenInLocalStorage(res.data.token)
+                    dispatch(setSuccessMessageAC("Success"))
                 }
             })
             .catch(err => {
