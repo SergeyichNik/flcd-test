@@ -8,7 +8,7 @@ export const StatusBarError = ({error}: {error?: string}) => {
     const dispatch = useDispatch<any>()
 
     useEffect(() => {
-        setTimeout(() => {dispatch(setErrorMessageAC(null))},3000)
+        setTimeout(() => {dispatch(setErrorMessageAC(null))},2000)
     },[])
     return (
         <div className={classes.main}>

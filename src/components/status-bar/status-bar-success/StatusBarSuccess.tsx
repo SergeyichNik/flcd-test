@@ -8,7 +8,7 @@ export const StatusBarSuccess = ({message}: {message?: string}) => {
     const dispatch = useDispatch<any>()
 
     useEffect(() => {
-        setTimeout(() => {dispatch(setSuccessMessageAC(null))},3000)
+        setTimeout(() => {dispatch(setSuccessMessageAC(null))},2000)
     },[])
     return (
         <div className={classes.main}>

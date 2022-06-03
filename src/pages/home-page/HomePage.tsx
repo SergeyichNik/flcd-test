@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth, setAppStatusAC, setIsLoggedInAC, setUserSelfDataAC} from "../../store";
+import {selectAuth, setIsLoggedInAC, setUserSelfDataAC} from "../../store";
 import classes from "./HomePage.module.css";
 
 
@@ -13,7 +13,6 @@ export const HomePage = () => {
 
     const onClickHandle = () => {
         dispatch(setIsLoggedInAC(false, null))
-        dispatch(setAppStatusAC("IDLE"))
         dispatch(setUserSelfDataAC(null, null, null))
         localStorage.removeItem("token")
     }
@@ -26,7 +25,7 @@ export const HomePage = () => {
                     ? <>
                         <h3>Hello, {userName}</h3>
                         <p>You have successfully logged in!</p>
-                        <div style={{cursor: "pointer"}} onClick={onClickHandle}>Log out</div>
+                        <div style={{cursor: "pointer", textDecoration: "underline"}} onClick={onClickHandle}>Log out</div>
                     </>
                     : <Link to={"/login"}>Sign In</Link>
             }
