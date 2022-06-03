@@ -34,6 +34,7 @@ export const fetchPostsTC = (): AppThunk =>
             })
             .finally(() => {
                 dispatch(toggleIsFetchAC(false))
+                dispatch(setAppStatusAC("IDLE"))
             })
     }
 
@@ -56,6 +57,7 @@ export const fetchCurrentPostTC = (id: number): AppThunk =>
             })
             .finally(() => {
                 dispatch(toggleIsFetchAC(false))
+                dispatch(setAppStatusAC("IDLE"))
             })
     }
 
@@ -86,6 +88,7 @@ export const createNewPostTC = (): AppThunk =>
             })
             .finally(() => {
                 dispatch(toggleIsFetchAC(false))
+                dispatch(setAppStatusAC("IDLE"))
             })
     }
 
@@ -114,6 +117,7 @@ export const updatePostTextTC = (id: number, model: PostType): AppThunk =>
             })
             .finally(() => {
                 dispatch(toggleIsFetchAC(false))
+                dispatch(setAppStatusAC("IDLE"))
             })
     }
 
@@ -140,5 +144,6 @@ export const removePostTC = (id: number): AppThunk =>
             })
             .finally(() => {
                 dispatch(toggleIsFetchAC(false))
+                dispatch(setAppStatusAC("IDLE"))
             })
     }

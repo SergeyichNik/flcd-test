@@ -19,6 +19,9 @@ export const signUpTC = (model: SignUpReqType): AppThunk =>
                 dispatch(setAppStatusAC("FAILED"))
                 handleServerAppError(err, dispatch)
             })
+            .finally(() => {
+                dispatch(setAppStatusAC("IDLE"))
+            })
 
     }
 
@@ -40,6 +43,9 @@ export const loginTC = (email: string, password: string): AppThunk =>
                 dispatch(setAppStatusAC("FAILED"))
                 handleServerAppError(err, dispatch)
             })
+            .finally(() => {
+                dispatch(setAppStatusAC("IDLE"))
+            })
 
     }
 
@@ -58,6 +64,9 @@ export const getUserInfoTC = (): AppThunk =>
                 .catch(err => {
                     dispatch(setIsLoggedInAC(false, null))
                     handleServerAppError(err, dispatch)
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("IDLE"))
                 })
 
         }
