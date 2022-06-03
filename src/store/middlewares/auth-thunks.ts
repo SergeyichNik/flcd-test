@@ -16,11 +16,10 @@ export const signUpTC = (model: SignUpReqType): AppThunk =>
                 dispatch(setSuccessMessageAC("Success"))
             })
             .catch(err => {
+                dispatch(setAppStatusAC("FAILED"))
                 handleServerAppError(err, dispatch)
             })
-            .finally(() => {
-                dispatch(setAppStatusAC("IDLE"))
-            })
+
     }
 
 export const loginTC = (email: string, password: string): AppThunk =>
@@ -38,14 +37,17 @@ export const loginTC = (email: string, password: string): AppThunk =>
                 }
             })
             .catch(err => {
+                dispatch(setAppStatusAC("FAILED"))
                 handleServerAppError(err, dispatch)
             })
+
     }
 
 export const getUserInfoTC = (): AppThunk =>
     (
         dispatch,
     ) => {
+        dispatch(setAppStatusAC("LOADING"))
         const token = loadState()
         if (token) {
             apiAuth.getUserSelf(token)
@@ -53,11 +55,14 @@ export const getUserInfoTC = (): AppThunk =>
                     const {id, name, email} = res.data
                     dispatch(setIsLoggedInAC(true, token))
                     dispatch(setUserSelfDataAC(email, id, name))
+                    dispatch(setAppStatusAC("SUCCESS"))
                 })
                 .catch(err => {
                     dispatch(setIsLoggedInAC(false, null))
                     handleServerAppError(err, dispatch)
+                    dispatch(setAppStatusAC("FAILED"))
                 })
+
         }
 
     }

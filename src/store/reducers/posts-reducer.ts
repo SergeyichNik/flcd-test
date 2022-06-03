@@ -14,7 +14,7 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
         case "SET_POSTS":
             return {
                 ...state,
-                postsData: [...state.postsData, ...action.payload.postsData]
+                postsData: [...state.postsData, ...action.payload.postsData.reverse()]
             };
         case "SET_NEW_POST":
             return {
