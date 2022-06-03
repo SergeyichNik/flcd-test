@@ -14,16 +14,16 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
         case "SET_POSTS":
             return {
                 ...state,
-            postsData: [...state.postsData, ...action.payload.postsData]
+                postsData: [...state.postsData, ...action.payload.postsData]
             };
         case "SET_NEW_POST":
             return {
-                ...state, postsData: [action.payload.model, ...state.postsData ]
+                ...state, postsData: [action.payload.model, ...state.postsData]
             }
         case "UPDATE_POST":
             return {
                 ...state,
-                postsData: state.postsData.map(post => post.id === action.payload.id ? {...post, ...action.payload.model} : post )
+                postsData: state.postsData.map(post => post.id === action.payload.id ? {...post, ...action.payload.model} : post)
             }
         case "REMOVE_POST":
             return {

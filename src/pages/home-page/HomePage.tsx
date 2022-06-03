@@ -6,7 +6,7 @@ import classes from "./HomePage.module.css";
 
 
 export const HomePage = () => {
-    console.log("HomePage")
+
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const userName = useSelector(selectAuth).name
     const dispatch = useDispatch<any>()

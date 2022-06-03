@@ -6,7 +6,6 @@ import classes from "./CreatePostPage.module.css";
 
 
 export const CreatePostPage = () => {
-    console.log("CreatePostPage")
 
     const dispatch = useDispatch<any>();
     const newPostText = useSelector(selectPosts).newPostText
@@ -29,11 +28,11 @@ export const CreatePostPage = () => {
     return (
         <div className={classes.wrapper}>
             <button  style={{marginRight: "220px"}} onClick={() => navigate(-1)}>Back</button>
-            <h2>Create new post</h2>
+            <h2>Add new post</h2>
             <div>
-                <textarea value={newPostText} onChange={onChangeHandle}></textarea>
+                <textarea placeholder={"New post..."} value={newPostText} onChange={onChangeHandle}></textarea>
             </div>
-            <button onClick={onClickHandle}>Create</button>
+            <button disabled={!newPostText} onClick={onClickHandle}>Add post</button>
         </div>
     );
 };

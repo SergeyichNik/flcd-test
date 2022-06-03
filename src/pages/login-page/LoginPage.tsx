@@ -8,7 +8,7 @@ import classes from "./LoginPage.module.css";
 
 
 export const LoginPage = React.memo( () => {
-    console.log('LoginPage')
+
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
 

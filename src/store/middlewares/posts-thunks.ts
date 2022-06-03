@@ -3,14 +3,16 @@ import {apiPosts} from "../../api";
 import {
     addNewPostAC,
     removePostAC,
-    setCurrentPostAC, setErrorMessageAC,
-    setPostsAC, setSuccessMessageAC,
+    setCurrentPostAC,
+    setPostsAC,
+    setSuccessMessageAC,
     toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
 import {handleServerAppError} from "../../utils/error-utils";
 import {PostType} from "../types";
+import {AxiosError} from "axios";
 
 
 export const fetchPostsTC = (): AppThunk =>
@@ -19,7 +21,6 @@ export const fetchPostsTC = (): AppThunk =>
     ) => {
         apiPosts.getPosts()
             .then(res => {
-                console.log(res)
                 if (res.status >= 200 && res.status < 300) {
                     dispatch(setPostsAC(res.data))
                 }
@@ -32,7 +33,6 @@ export const fetchCurrentPostTC = (id: number): AppThunk =>
     ) => {
         apiPosts.getPost(id)
             .then(res => {
-                console.log(res)
                 if (res.status >= 200 && res.status < 300) {
                     dispatch(setCurrentPostAC(res.data))
                 }
@@ -68,6 +68,9 @@ export const createNewPostTC = (): AppThunk =>
                 handleServerAppError(err, dispatch)
                 dispatch(toggleIsFetchAC(false))
             })
+            .finally(() => {
+                dispatch(toggleIsFetchAC(false))
+            })
     }
 
 export const updatePostTextTC = (id: number, model: PostType): AppThunk =>
@@ -79,12 +82,10 @@ export const updatePostTextTC = (id: number, model: PostType): AppThunk =>
         const postsData = getState().posts.postsData as PostType[]
         const post = postsData.find((post) => id === post.id)
         if (!post) {
-            console.warn("post not found")
-            return
+            AxiosError.caller("post not found")
         }
         apiPosts.updatePost(id, model.text, token)
             .then(res => {
-                console.log(res)
                 dispatch(setSuccessMessageAC("Success"))
                 dispatch(updatePostAC(id, {comments: [], ...res.data}))
                 dispatch(toggleIsFetchAC(true))
@@ -105,11 +106,11 @@ export const removePostTC = (id: number): AppThunk =>
         const token = getState().auth.token
         apiPosts.deletePost(id, token)
             .then(res => {
-                    if (res.status >= 200 && res.status <= 300)
+                    if (res.status >= 200 && res.status <= 300) {
                         dispatch(removePostAC(id))
-                    console.log(res.data[0])
-                    dispatch(setSuccessMessageAC("Success"))
-                    dispatch(toggleIsFetchAC(true))
+                        dispatch(setSuccessMessageAC("Success"))
+                        dispatch(toggleIsFetchAC(true))
+                    }
                 }
             )
             .catch(err => {

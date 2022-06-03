@@ -7,7 +7,6 @@ import classes from "./BlogPage.module.css";
 
 
 export const BlogPage = React.memo(() => {
-    console.log("BlogPage")
     const postsData = useSelector(selectPosts).postsData
     const currentUser = useSelector(selectAuth).id
 

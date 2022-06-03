@@ -6,19 +6,21 @@ import classes from "./PostPage.module.css";
 
 
 export const PostPage = () => {
-    console.log("PostPage")
+
     const dispatch = useDispatch<any>()
+
     const singlePost = useSelector(selectPosts).singlePost
     const isFetch = useSelector(selectPosts).isFetch
     const currentUserId = useSelector(selectAuth).id
-    const ownerId = singlePost.user_id
 
-    const [deleteConfirm, setDeleteConfirm] = useState(false)
+    const ownerId = singlePost.user_id
 
     const navigate = useNavigate()
 
     const {id} = useParams()
-    console.log('id:', id)
+
+    const [deleteConfirm, setDeleteConfirm] = useState(false)
+
 
     useEffect(() => {
       if (id) {
@@ -48,11 +50,11 @@ export const PostPage = () => {
                         <Link to={`/posts/${id}/edit`}>edit this post</Link>
                     </div>
                     {deleteConfirm
-                        ? <>
+                        ? <div className={classes.confirmBtn}>
                             <button onClick={toggleDeleteBtn}>Cancel</button>
                             <button onClick={confirmRemovePost}>Confirm</button>
-                        </>
-                        : <button onClick={toggleDeleteBtn}>Delete</button>
+                        </div>
+                        : <button className={classes.confirmBtn} onClick={toggleDeleteBtn}>Delete</button>
                     }
                 </>
             }

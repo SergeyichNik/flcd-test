@@ -6,7 +6,6 @@ import classes from "./EditPostPage.module.css";
 
 
 export const EditPostPage = () => {
-    console.log("EditPostPage")
     const dispatch = useDispatch<any>()
 
     const singlePost = useSelector(selectPosts).singlePost
@@ -28,8 +27,8 @@ export const EditPostPage = () => {
         <div className={classes.wrapper}>
             <button  style={{marginRight: "220px"}} onClick={() => navigate(-1)}>Back</button>
             <h2>Edit post {singlePost.id}</h2>
-            <textarea value={value} onChange={(e) => setValue(e.currentTarget.value)}/>
-            <button  onClick={onClickHandle}>Confirm</button>
+            <textarea value={value} placeholder={"Edit post..."} onChange={(e) => setValue(e.currentTarget.value)}/>
+            <button disabled={!value} onClick={onClickHandle}>Confirm</button>
         </div>
     );
 };

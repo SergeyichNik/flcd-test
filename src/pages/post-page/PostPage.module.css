@@ -16,8 +16,15 @@
 }
 
 .wrapper h2 {
+    word-wrap: break-word;
+    width: 90%;
     height: 150px;
 }
+
+.confirmBtn button, .confirmBtn {
+    margin: 10px;
+}
+
 
 
 

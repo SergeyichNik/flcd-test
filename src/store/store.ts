@@ -10,12 +10,7 @@ const reducer = combineReducers({
     app: appReducer
 });
 
-
-export const  store = createStore(reducer, applyMiddleware(thunk));
-
-
-// @ts-ignore
-window.store = store;
+export const store = createStore(reducer, applyMiddleware(thunk));
 
 export type RootStateType = ReturnType<typeof reducer>;
 export type RootActionsTypes = PostsReducerActionsType | AuthReducerActionsType | AppReducerActionsTypes;

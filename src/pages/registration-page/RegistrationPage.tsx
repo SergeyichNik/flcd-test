@@ -8,7 +8,7 @@ import classes from "./RegistrationPage.module.css";
 
 
 export const RegistrationPage = () => {
-    console.log("RegistrationPage")
+
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
     const status = useSelector(selectApp).status

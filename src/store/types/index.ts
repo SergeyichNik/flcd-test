@@ -1,14 +1,13 @@
-
 import {
     addNewPostAC,
     removePostAC, setAppStatusAC,
     setCurrentPostAC, setErrorMessageAC, setIsLoggedInAC,
-    setPostsAC, setUserSelfDataAC,
+    setPostsAC, setSuccessMessageAC, setUserSelfDataAC,
     toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
-import {setSuccessMessageAC} from "../actions/app";
+
 
 
 export type PostsReducerActionsType =

@@ -12,7 +12,6 @@ export const signUpTC = (model: SignUpReqType): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiAuth.signUp(model)
             .then(res => {
-                console.log(res);
                 dispatch(setAppStatusAC("SUCCESS"))
                 dispatch(setSuccessMessageAC("Success"))
             })
@@ -28,9 +27,11 @@ export const loginTC = (email: string, password: string): AppThunk =>
     (
         dispatch
     ) => {
+        dispatch(setAppStatusAC("LOADING"))
         apiAuth.signIn(email, password)
             .then(res => {
                 if (res.status >= 200 && res.status < 300) {
+                    dispatch(setAppStatusAC("SUCCESS"))
                     dispatch(setIsLoggedInAC(true, res.data.token))
                     saveTokenInLocalStorage(res.data.token)
                     dispatch(setSuccessMessageAC("Success"))
@@ -49,7 +50,6 @@ export const getUserInfoTC = (): AppThunk =>
         if (token) {
             apiAuth.getUserSelf(token)
                 .then(res => {
-                    console.log(res.data.name)
                     const {id, name, email} = res.data
                     dispatch(setIsLoggedInAC(true, token))
                     dispatch(setUserSelfDataAC(email, id, name))
