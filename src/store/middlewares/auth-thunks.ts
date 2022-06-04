@@ -32,12 +32,11 @@ export const loginTC = (email: string, password: string): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiAuth.signIn(email, password)
             .then(res => {
-                if (res.status >= 200 && res.status < 300) {
                     dispatch(setAppStatusAC("SUCCESS"))
                     dispatch(setIsLoggedInAC(true, res.data.token))
                     saveTokenInLocalStorage(res.data.token)
                     dispatch(setSuccessMessageAC("Success"))
-                }
+
             })
             .catch(err => {
                 dispatch(setAppStatusAC("FAILED"))
