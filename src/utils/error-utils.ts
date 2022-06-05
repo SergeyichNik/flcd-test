@@ -7,14 +7,11 @@ export const handleServerAppError =
         err: ErrRes<ResTypeA>,
         dispatch: Dispatch<AppReducerActionsTypes>
     ) => {
-        console.log(err)
 
         if (err.code === "ERR_NETWORK") {
             dispatch(setErrorMessageAC(err.message))
             return;
         }
-
-
 
         if (err.response.data) {
             if (err.response.data.message) {
@@ -28,18 +25,18 @@ export const handleServerAppError =
                 }
             }
         }
+    };
+
+type ErrRes<T> = {
+    code: string
+    message: string
+    response: {
+        data: T
     }
 
-        type ErrRes<T> = {
-            code: string
-            message: string
-            response: {
-                data: T
-            }
+}
 
-        }
-
-        type ResTypeA = {
-            message: string
-            errors: string[]
-        }
+type ResTypeA = {
+    message: string
+    errors: string[]
+}
