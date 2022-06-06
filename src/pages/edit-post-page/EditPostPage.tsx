@@ -28,7 +28,7 @@ export const EditPostPage = () => {
             <button  style={{marginRight: "220px"}} onClick={() => navigate(-1)}>Back</button>
             <h2>Edit post {singlePost.id}</h2>
             <textarea value={value} placeholder={"Edit post..."} onChange={(e) => setValue(e.currentTarget.value)}/>
-            <button disabled={!value} onClick={onClickHandle}>Confirm</button>
+            <button disabled={!value || status === "LOADING"} onClick={onClickHandle}>Confirm</button>
         </div>
     );
 };

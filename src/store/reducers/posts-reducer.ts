@@ -17,7 +17,8 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
             };
         case "SET_NEW_POST":
             return {
-                ...state, postsData: [action.payload.model, ...state.postsData]
+                ...state,
+                postsData: [action.payload.model, ...state.postsData]
             }
         case "UPDATE_POST":
             return {

@@ -32,7 +32,7 @@ export const CreatePostPage = () => {
             <div>
                 <textarea placeholder={"New post..."} value={newPostText} onChange={onChangeHandle}></textarea>
             </div>
-            <button disabled={!newPostText} onClick={onClickHandle}>Add post</button>
+            <button disabled={!newPostText || status === "LOADING"} onClick={onClickHandle}>Add post</button>
         </div>
     );
 };

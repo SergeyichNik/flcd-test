@@ -51,8 +51,8 @@ export const PostPage = () => {
                     </div>
                     {deleteConfirm
                         ? <div className={classes.confirmBtn}>
-                            <button onClick={toggleDeleteBtn}>Cancel</button>
-                            <button onClick={confirmRemovePost}>Confirm</button>
+                            <button disabled={status === "LOADING"} onClick={toggleDeleteBtn}>Cancel</button>
+                            <button disabled={status === "LOADING"} onClick={confirmRemovePost}>Confirm</button>
                         </div>
                         : <button className={classes.confirmBtn} onClick={toggleDeleteBtn}>Delete</button>
                     }

@@ -63,7 +63,7 @@ export const RegistrationPage = () => {
                         && formik.errors.password_confirmation
                         && <div style={{color: 'red'}}>{formik.errors.password_confirmation}</div>}
                 </div>
-                <button type={'submit'} >Registration</button>
+                <button disabled={status === "LOADING"} type={'submit'} >Registration</button>
             </form>
         </div>
     );

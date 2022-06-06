@@ -3,7 +3,7 @@ import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import {loginTC, selectAuth} from "../../store";
+import {loginTC, selectApp, selectAuth} from "../../store";
 import classes from "./LoginPage.module.css";
 
 
@@ -11,6 +11,7 @@ export const LoginPage = React.memo( () => {
 
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector(selectAuth).isLoggedIn
+    const status = useSelector(selectApp).status
 
     const formik = useFormik({
         initialValues: {
@@ -44,7 +45,7 @@ export const LoginPage = React.memo( () => {
                         && formik.errors.password
                         && <div style={{color: 'red'}}>{formik.errors.password}</div>}
                 </div>
-                <button type={'submit'}>Login</button>
+                <button disabled={status === "LOADING"} type={'submit'}>Login</button>
                 <hr/>
                 <div> No account yet? </div>
                 <Link to={"/registration"}>Registration</Link>
