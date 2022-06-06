@@ -22,10 +22,8 @@ export const fetchPostsTC = (): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiPosts.getPosts()
             .then(res => {
-                if (res.status >= 200 && res.status < 300) {
-                    dispatch(setAppStatusAC("SUCCESS"))
-                    dispatch(setPostsAC(res.data))
-                }
+                dispatch(setAppStatusAC("SUCCESS"))
+                dispatch(setPostsAC(res.data))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
@@ -45,10 +43,8 @@ export const fetchCurrentPostTC = (id: number): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiPosts.getPost(id)
             .then(res => {
-                if (res.status >= 200 && res.status < 300) {
-                    dispatch(setAppStatusAC("SUCCESS"))
-                    dispatch(setCurrentPostAC(res.data))
-                }
+                dispatch(setAppStatusAC("SUCCESS"))
+                dispatch(setCurrentPostAC(res.data))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
@@ -130,12 +126,10 @@ export const removePostTC = (id: number): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiPosts.deletePost(id, token)
             .then(res => {
-                    if (res.status >= 200 && res.status <= 300) {
-                        dispatch(setAppStatusAC("SUCCESS"))
-                        dispatch(removePostAC(id))
-                        dispatch(setSuccessMessageAC("Success"))
-                        dispatch(toggleIsFetchAC(true))
-                    }
+                    dispatch(setAppStatusAC("SUCCESS"))
+                    dispatch(removePostAC(id))
+                    dispatch(setSuccessMessageAC("Success"))
+                    dispatch(toggleIsFetchAC(true))
                 }
             )
             .catch(err => {
