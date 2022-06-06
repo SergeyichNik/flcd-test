@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/flcd-test/static/css/main.4796827c.css",
-    "main.js": "/flcd-test/static/js/main.3c18821e.js",
+    "main.js": "/flcd-test/static/js/main.31167f37.js",
     "static/js/787.3d002911.chunk.js": "/flcd-test/static/js/787.3d002911.chunk.js",
     "index.html": "/flcd-test/index.html",
     "main.4796827c.css.map": "/flcd-test/static/css/main.4796827c.css.map",
-    "main.3c18821e.js.map": "/flcd-test/static/js/main.3c18821e.js.map",
+    "main.31167f37.js.map": "/flcd-test/static/js/main.31167f37.js.map",
     "787.3d002911.chunk.js.map": "/flcd-test/static/js/787.3d002911.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4796827c.css",
-    "static/js/main.3c18821e.js"
+    "static/js/main.31167f37.js"
   ]
 }
