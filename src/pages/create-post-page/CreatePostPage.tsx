@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
-import {createNewPostTC, selectPosts, updateNewPostTextAC} from "../../store";
+import {createNewPostTC, selectApp, selectPosts, updateNewPostTextAC} from "../../store";
 import classes from "./CreatePostPage.module.css";
 
 
@@ -9,7 +9,7 @@ export const CreatePostPage = () => {
 
     const dispatch = useDispatch<any>();
     const newPostText = useSelector(selectPosts).newPostText
-    const isFetch = useSelector(selectPosts).isFetch
+    const status = useSelector(selectApp).status
 
     const navigate = useNavigate()
 
@@ -21,7 +21,7 @@ export const CreatePostPage = () => {
         dispatch(createNewPostTC())
     }
 
-    if (isFetch) {
+    if (status === "SUCCESS") {
         return <Navigate to={"/posts"}/>
     }
 

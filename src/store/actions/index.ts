@@ -3,7 +3,6 @@ export {
     addNewPostAC,
     setPostsAC,
     updateNewPostTextAC,
-    toggleIsFetchAC,
     updatePostAC,
     removePostAC,
 } from "./posts";

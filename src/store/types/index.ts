@@ -3,7 +3,6 @@ import {
     removePostAC, setAppStatusAC,
     setCurrentPostAC, setErrorMessageAC, setIsLoggedInAC,
     setPostsAC, setSuccessMessageAC, setUserSelfDataAC,
-    toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
@@ -17,14 +16,12 @@ export type PostsReducerActionsType =
     | ReturnType<typeof addNewPostAC>
     | ReturnType<typeof updatePostAC>
     | ReturnType<typeof removePostAC>
-    | ReturnType<typeof toggleIsFetchAC>
 
 
 export type StateType = {
     postsData: PostType[],
     singlePost: PostType,
     newPostText: string,
-    isFetch: boolean
 }
 
 export type PostType = {
@@ -61,7 +58,7 @@ export type AuthReducerStateType = {
 }
 
 export type AppReducerStateType = {
-    success: "Success" | null,
+    success: string | null,
     error: string | null,
     status: AppStatusesType,
 }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
-import {PostType, selectPosts, updatePostTextTC} from "../../store";
+import {PostType, selectApp, selectPosts, updatePostTextTC} from "../../store";
 import classes from "./EditPostPage.module.css";
 
 
@@ -9,7 +9,7 @@ export const EditPostPage = () => {
     const dispatch = useDispatch<any>()
 
     const singlePost = useSelector(selectPosts).singlePost
-    const isFetch = useSelector(selectPosts).isFetch
+    const status = useSelector(selectApp).status
 
     const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ export const EditPostPage = () => {
         dispatch(updatePostTextTC(singlePost.id,{text: value} as PostType))
     }
 
-    if (isFetch) {
+    if (status === "SUCCESS") {
         return <Navigate to={"/posts"}/>
     }
 

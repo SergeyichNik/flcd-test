@@ -5,7 +5,6 @@ const InitialState: StateType = {
     postsData: [],
     singlePost: {} as PostType,
     newPostText: "",
-    isFetch: false,
 }
 
 
@@ -34,13 +33,7 @@ export const postsReducer = (state: StateType = InitialState, action: PostsReduc
             return {...state, singlePost: {...action.payload.singlePost}};
         case "SET_NEW_POST_TEXT":
             return {...state, newPostText: action.payload.text};
-        case "TOGGLE_IS_FETCH":
-            return {...state, isFetch: action.payload.isFetch}
         default:
             return state;
     }
 }
-
-//selector
-
-

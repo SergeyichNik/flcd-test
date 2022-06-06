@@ -7,7 +7,6 @@ export {
     updatePostAC,
     setPostsAC,
     updateNewPostTextAC,
-    toggleIsFetchAC,
     addNewPostAC,
     setCurrentPostAC,
 } from "./actions"

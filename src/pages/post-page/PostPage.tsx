@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCurrentPostTC, removePostTC, selectAuth, selectPosts} from "../../store";
+import {fetchCurrentPostTC, removePostTC, selectApp, selectAuth, selectPosts} from "../../store";
 import classes from "./PostPage.module.css";
 
 
@@ -10,7 +10,7 @@ export const PostPage = () => {
     const dispatch = useDispatch<any>()
 
     const singlePost = useSelector(selectPosts).singlePost
-    const isFetch = useSelector(selectPosts).isFetch
+    const status = useSelector(selectApp).status
     const currentUserId = useSelector(selectAuth).id
 
     const ownerId = singlePost.user_id
@@ -36,7 +36,7 @@ export const PostPage = () => {
         dispatch(removePostTC(singlePost.id))
     }
 
-    if (isFetch) {
+    if (status === "SUCCESS") {
         return <Navigate to={"/posts"}/>
     }
 

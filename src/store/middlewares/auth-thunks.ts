@@ -11,9 +11,9 @@ export const signUpTC = (model: SignUpReqType): AppThunk =>
     ) => {
         dispatch(setAppStatusAC("LOADING"))
         apiAuth.signUp(model)
-            .then(res => {
+            .then(() => {
                 dispatch(setAppStatusAC("SUCCESS"))
-                dispatch(setSuccessMessageAC("Success"))
+                dispatch(setSuccessMessageAC("Registration successful"))
             })
             .catch(err => {
                 dispatch(setAppStatusAC("FAILED"))
@@ -35,7 +35,7 @@ export const loginTC = (email: string, password: string): AppThunk =>
                     dispatch(setAppStatusAC("SUCCESS"))
                     dispatch(setIsLoggedInAC(true, res.data.token))
                     saveTokenInLocalStorage(res.data.token)
-                    dispatch(setSuccessMessageAC("Success"))
+                    dispatch(setSuccessMessageAC("Authorization successful"))
 
             })
             .catch(err => {

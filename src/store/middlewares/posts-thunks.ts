@@ -2,11 +2,11 @@ import {AppThunk} from "../store";
 import {apiPosts} from "../../api";
 import {
     addNewPostAC,
-    removePostAC, setAppStatusAC,
+    removePostAC,
+    setAppStatusAC,
     setCurrentPostAC,
     setPostsAC,
     setSuccessMessageAC,
-    toggleIsFetchAC,
     updateNewPostTextAC,
     updatePostAC
 } from "../actions";
@@ -27,11 +27,9 @@ export const fetchPostsTC = (): AppThunk =>
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
-                dispatch(toggleIsFetchAC(true))
                 dispatch(setAppStatusAC("FAILED"))
             })
             .finally(() => {
-                dispatch(toggleIsFetchAC(false))
                 dispatch(setAppStatusAC("IDLE"))
             })
     }
@@ -40,21 +38,14 @@ export const fetchCurrentPostTC = (id: number): AppThunk =>
     (
         dispatch
     ) => {
-        dispatch(setAppStatusAC("LOADING"))
         apiPosts.getPost(id)
             .then(res => {
-                dispatch(setAppStatusAC("SUCCESS"))
                 dispatch(setCurrentPostAC(res.data))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
-                dispatch(toggleIsFetchAC(true))
-                dispatch(setAppStatusAC("FAILED"))
             })
-            .finally(() => {
-                dispatch(toggleIsFetchAC(false))
-                dispatch(setAppStatusAC("IDLE"))
-            })
+
     }
 
 export const createNewPostTC = (): AppThunk =>
@@ -71,19 +62,16 @@ export const createNewPostTC = (): AppThunk =>
                     comments: [],
                     ...res.data
                 }
-                dispatch(setSuccessMessageAC("Success"))
+                dispatch(setSuccessMessageAC("Post added"))
                 dispatch(setAppStatusAC("SUCCESS"))
                 dispatch(addNewPostAC(model))
                 dispatch(updateNewPostTextAC(""))
-                dispatch(toggleIsFetchAC(true))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
-                dispatch(toggleIsFetchAC(false))
                 dispatch(setAppStatusAC("FAILED"))
             })
             .finally(() => {
-                dispatch(toggleIsFetchAC(false))
                 dispatch(setAppStatusAC("IDLE"))
             })
     }
@@ -102,17 +90,15 @@ export const updatePostTextTC = (id: number, model: PostType): AppThunk =>
         dispatch(setAppStatusAC("LOADING"))
         apiPosts.updatePost(id, model.text, token)
             .then(res => {
-                dispatch(setSuccessMessageAC("Success"))
+                dispatch(setSuccessMessageAC("Post updated"))
                 dispatch(setAppStatusAC("SUCCESS"))
                 dispatch(updatePostAC(id, {comments: [], ...res.data}))
-                dispatch(toggleIsFetchAC(true))
             })
             .catch(err => {
                 handleServerAppError(err, dispatch)
                 dispatch(setAppStatusAC("FAILED"))
             })
             .finally(() => {
-                dispatch(toggleIsFetchAC(false))
                 dispatch(setAppStatusAC("IDLE"))
             })
     }
@@ -125,11 +111,10 @@ export const removePostTC = (id: number): AppThunk =>
         const token = getState().auth.token
         dispatch(setAppStatusAC("LOADING"))
         apiPosts.deletePost(id, token)
-            .then(res => {
+            .then( () => {
                     dispatch(setAppStatusAC("SUCCESS"))
                     dispatch(removePostAC(id))
-                    dispatch(setSuccessMessageAC("Success"))
-                    dispatch(toggleIsFetchAC(true))
+                    dispatch(setSuccessMessageAC("Post deleted"))
                 }
             )
             .catch(err => {
@@ -137,7 +122,6 @@ export const removePostTC = (id: number): AppThunk =>
                 dispatch(setAppStatusAC("FAILED"))
             })
             .finally(() => {
-                dispatch(toggleIsFetchAC(false))
                 dispatch(setAppStatusAC("IDLE"))
             })
     }

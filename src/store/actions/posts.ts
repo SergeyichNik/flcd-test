@@ -6,4 +6,3 @@ export const updatePostAC = (id: number, model: PostType) => ({type: "UPDATE_POS
 export const setCurrentPostAC = (singlePost: PostType) => ({type: "SET_SINGLE_POST", payload: {singlePost}} as const)
 export const addNewPostAC = (model: PostType) => ({type: "SET_NEW_POST", payload: {model}} as const)
 export const removePostAC = (id: number) => ({type: "REMOVE_POST", payload: {id}} as const)
-export const toggleIsFetchAC = (isFetch: boolean) => ({type: "TOGGLE_IS_FETCH", payload: {isFetch}} as const)
